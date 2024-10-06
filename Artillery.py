@@ -70,21 +70,23 @@ def artillery_calculator(mortar_coords, target_coords):
 # Streamlit app interface
 st.title("Artillery Calculator")
 
-# Input fields
+# Input fields (modified to display integers)
 st.sidebar.header("Launch Point (x0, y0, z0)")
-x0 = st.sidebar.number_input("x0", value=0.0)
-y0 = st.sidebar.number_input("y0", value=0.0)
-z0 = st.sidebar.number_input("z0", value=0.0)
+x0 = st.sidebar.number_input("x0", value=0, format="%d")
+y0 = st.sidebar.number_input("y0", value=0, format="%d")
+z0 = st.sidebar.number_input("z0", value=0, format="%d")
 
 st.sidebar.header("Target Point (xt, yt, zt)")
-xt = st.sidebar.number_input("xt", value=0.0)
-yt = st.sidebar.number_input("yt", value=0.0)
-zt = st.sidebar.number_input("zt", value=0.0)
+xt = st.sidebar.number_input("xt", value=0, format="%d")
+yt = st.sidebar.number_input("yt", value=0, format="%d")
+zt = st.sidebar.number_input("zt", value=0, format="%d")
 
 # Perform calculation when the button is clicked
 if st.button("Calculate"):
-    mortar_coords = (x0, y0, z0)
-    target_coords = (xt, yt, zt)
+    # Convert inputs to float for calculations
+    mortar_coords = (float(x0), float(y0), float(z0))
+    target_coords = (float(xt), float(yt), float(zt))
+    
     bearing_1, bearing_2, angle, time_of_flight = artillery_calculator(mortar_coords, target_coords)
     distance = calculate_horizontal_range(mortar_coords, target_coords)
 
